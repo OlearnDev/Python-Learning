@@ -1,0 +1,211 @@
+--------- Extension Python à installer:
+
+Python extension pack  : les softs importants dont Python, Django, Jinja
+Pylance		: language support
+vscode-icons : affichage icone des fichiers (facultatif)
+sublime Text Kemap : pour des raccourcis claviers additionnels (facultatif)
+
+---- Install Ipython
+
+$ pip install ipython  (utilisé pour les actions interactives)
+
+---------- Operateurs :
+
+modulo %   5%2 = 1
+division entiere //    5//2=2
+puissance **  (3²)² = 3**2**2 = 81
+
+Chaine de caractère ""
+concat +
+Duplication (challow copie ?) *  "je suis une chaine"*2 = 'je suis une chaineje suis une chaine'
+
+
+----------- Comparaison
+
+Egalité == 
+Non Egalité != 
+Superieur >    Superieur ou egal >=
+Inferieur <    Inferieur ou egal <=
+
+------- Variables
+
+a=25 b=16
+id(a) : donne l'adresse à laquelle est enregistrée la variable actions
+
+id(a)==id(b)  false
+
+Pour toute valeur comprise entre -5 et 256 caractères, prière enregistre en cache les valeurs et donc
+les ids seront les memes sinon différents
+
+a=-4 b=-4
+id(a)==id(b)  true
+
+a=257 b=257
+id(a)==id(b)  false
+
+------ Affectation
+
+simple a=1
+
+multiple : a,b,c = 24, 67, 15  (a=24 b=67 c=15)
+Permutation a,b = b,a  (a=67 b=24)
+
+Incrément a = a+10 ou a += 10 
+Decrément a = a-10 ou a -= 10
+Multiplication a *= 10 (a*10)
+division  a /= 2 (a/2)
+division entiere // a //= 2 (a=a//2)
+Puissance a **= 2  (a=a**2)
+
+--- Nomination des vars
+
+1- Composé de maj,min,chiffre et underscore
+2- Ne doit pas commencer par un chiffre
+3- Sensible à la casse
+
+Convention communauté 
+
+camelCase : Mettre le debut du 2e mot en majuscule			ageJohn
+PascalCase : La 1ere lettre aussi du 1er mot en majuscule	AgeJohn
+kebab-case : Mettre un underscore au lieu de tiret entre 2 mots age_john
+
+En général, la PascalCase est utilisé pour la notation des classes et camelCase et kebab-case pour les vars et fonctions
+
+------- Les types natifs (compris par le langage python par défaut)
+
+entier
+flottant (nombre à virgule ".")
+string 
+boolean (true, false)
+nombre complexe 2+3j
+Le type None ne contient que la valeur none
+
+---- Conversion ou casting
+
+Pour voir le type : type (var)
+convertir en int : int(var)
+convertir en str : str(var)
+convertir en float : float('56466') = 54.66
+convertir en complexe : complex(5) --> 5+0j
+
+bool("str") : Retourne true si chaine valide
+   bool("False") --> true
+   
+--- Falsies values : interprétés comme false par python
+
+bool(False) = false
+bool(0) = false
+bool de sequence vide retourne false
+bool(None) = false
+
+Le type None ne contient que la valeur none
+
+------ Formatage de textes
+
+1) Operateur + 
+
+nom = "John"  
+prenom = "Lys"  
+nom_complet = prenom + " " + nom  #--> Lys John
+age=14
+
+2)Avec print
+
+print(prenom, nom) --> Lys John
+
+print(prenom + " " + nom +" a actuellement" + str(age) + " ans")
+print(prenom + " " + nom +" a actuellement" ,age, "ans")
+
+-- Formatage avec utilisation de marqueur
+
+print("%s %s a actuellement %d ans" %(prenom,nom,age))
+
+%s : string %d : digit
+
+1-- Formatage avec format
+chaine="{} {} a actuellement {} ans".format(prenom, nom, age)
+print(chaine)
+
+2--- Passage des indexes
+chaine="{2} {1} a actuellement {0} ans".format(age,nom,prenom )
+print(chaine)
+
+3--- Passage de variables
+chaine="{p} {n} a actuellement {a} ans".format(p=prenom, n=nom, a=age)
+print(chaine)
+
+4--- Passage nouvelle utilisation avec f en début de chaine
+chaine=f"{prenom} {nom} a actuellement {age} ans"
+print(chaine)
+
+---  Structures conditionnelles -----------
+
+-- IF condition
+age=15
+
+if age>= 19:
+	print("Vous etes adulte !")
+elif 14<age< 19:
+	print("Vous etes adolescent !")
+elif 5<age< 14:
+	print("Vous etes encore enfant !")
+else:
+	print("Vous etes un bébé !")
+
+--- While condifiton
+
+nom = input("Votre nom  svp !")
+loop=true
+
+while loop:
+    if nom:
+        print(f"bonjour {nom}, comment allez vous ajourd'hui !")
+        loop = false
+    else:
+        nom = input("Votre nom  svp !")
+
+--- For condifiton
+
+for i in range(10):
+    print((i+1)**2)
+
+
+--- Les séquences : Suite de données ordonnées
+
+-- Les listes : peuvent contenir tout type de données
+
+l=[]  # liste vide
+l=["Ted", 34, True, range(15)]
+
+print(l)
+print(l[0])
+
+for i in l:
+    if type(i) == str:
+        print(i.upper())
+    elif type(i) == int:
+        print(i**2)
+    else:
+        print(i)
+
+-- Les tuples : comment les listes mais ne peuvent etre modifiés une fois créés. Utilisent() au lieu de []
+
+l=("Ted", 34, True, range(15))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
