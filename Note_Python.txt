@@ -192,6 +192,27 @@ for i in l:
 
 l=("Ted", 34, True, range(15))
 
+-- Les fonctions
+
+def func_hello(nom, age=-1):  #age est une var optionnelle dans ce cas. On peut mettre age=None
+    print(f"Bonjour {nom}vous avez {age} ans !")
+    
+func_hello ("John")  
+
+Par défaut une fonction retourne "None" si pas de retour spécifié
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
