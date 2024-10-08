@@ -201,13 +201,88 @@ func_hello ("John")
 
 Par défaut une fonction retourne "None" si pas de retour spécifié
 
+-- Unpacking
+
+nom = ["Jean","Marie","Prune"]
+
+a,b,c=nom   :      a="Jean", b="Marie", c="Prune"
+a,*o_=nom   :      a="Jean", o_= ["Marie", c="Prune"]
+
+*o_,c=nom
+print(c,o_) :       c=Prune , o_=["Jean","Marie"]
+
+d = {"nom":"Jean","prenom":"Marie"}
+
+print(*d)           :   nom, prenom
+print(*d.values())  :   Jean, Marie 
+print(*d.items())  :   ('nom','Jean') ('prenom','Marie') 
+
+def hello(nom,prenom):
+    print(f"Hello {prenom}{nom}")
+
+r=o_=['Jean','Marie']
+hello(*r)               Hello Marie Jean 
+
+d = {"nom":"Jean","prenom":"Marie"}
+hello(*d)           Hello prenom nom
+hello(*d.values())  Hello Marie Jean
+hello(*d.items())   Hello ('prenom','Marie') ('nom','Jean') 
+hello(**d)          Hello Marie Jean  
+NB: Ce dernier cas marche si les arguments sont identiques aux clés du dict sinon utiliser hello(*d.values())
+
+--- Fonction anonymes ou lamda ou jetables ou callback car pas utilisé en dehors d'une seule fois
+    Elle doit s'executer sur une seule ligne
+    
+lambda a,b:a+b  : utilisation de mot clé lambda sans nom de fonction. On peut l'affecter à une var
+
+def sorted_key(elt):return len(elt)
+
+l=["Anne","Joe","Boubacar"]
+
+l.sort()                                "Anne","Boubacar","Joe"
+print(sorted(l))                        "Anne","Boubacar","Joe"
+print(sorted(l, key=sorted_key)) ou l.sort(key=sorted_key)        "Joe","Anne","Boubacar"
+    La fonction trie selon la longueur des mots puis dans leur ordre alpha. 
+    La fonction anonyme sorted_key est appelée sans les () car passée en référence. C'est un callback
+
+----Utilisation de fonction lambda:    
+l.sort(key=lambda a: len(a))     "Anne","Boubacar","Joe" 
+
+-- Les ternaires
+
+def Majeur(age):
+    majeur = True if age>=18 else False
+    return majeur
+    
+--- Les arguments variables
+
+def somme(*args):return sum(args)     * indique qu'on peut passer 0 ou n arguments
+
+somme(1,2,3)  : 6
+
+def create_dict(**args): print(args)
+
+create_dict(nom="Jean", age=14, job="Devops")  retourne un dict {'nom': 'Jean', 'age': 14, 'job': 'Devops'}
+
+----- Les env
 
 
+python -m venv myen             : créer un env nommé myenv   
+pip install flask python-dotenv : installer  flask python-dotenv
+python -m venv myen             : Lancer une appli
 
 
+from flask import Flask
 
+app=Flask(__name__)
 
+@app.route('/')   
 
+def home():
+    return "<h1>Bienvenue sur mon site web !</h1>"
+    
+if __name__='__main__':
+    app.run(debug=True)
 
 
 
