@@ -17,7 +17,7 @@ puissance **  (3²)² = 3**2**2 = 81
 
 Chaine de caractère ""
 concat +
-Duplication (challow copie ?) *  "je suis une chaine"*2 = 'je suis une chaineje suis une chaine'
+Duplication (shallow copy) *  "je suis une chaine"*2 = 'je suis une chaineje suis une chaine'
 
 
 ----------- Comparaison
@@ -30,11 +30,11 @@ Inferieur <    Inferieur ou egal <=
 ------- Variables
 
 a=25 b=16
-id(a) : donne l'adresse à laquelle est enregistrée la variable actions
+id(a) : donne l''adresse à laquelle est enregistrée la variable actions
 
 id(a)==id(b)  false
 
-Pour toute valeur comprise entre -5 et 256 caractères, prière enregistre en cache les valeurs et donc
+Pour toute valeur comprise entre -5 et 256 caractères, python enregistre en cache les valeurs et donc
 les ids seront les memes sinon différents
 
 a=-4 b=-4
@@ -59,7 +59,7 @@ Puissance a **= 2  (a=a**2)
 
 --- Nomination des vars
 
-1- Composé de maj,min,chiffre et underscore
+1- Composé de maj, min, chiffre et underscore
 2- Ne doit pas commencer par un chiffre
 3- Sensible à la casse
 
@@ -120,7 +120,7 @@ print(prenom + " " + nom +" a actuellement" ,age, "ans")
 
 print("%s %s a actuellement %d ans" %(prenom,nom,age))
 
-%s : string %d : digit
+%s : string ; %d : digit
 
 1-- Formatage avec format
 chaine="{} {} a actuellement {} ans".format(prenom, nom, age)
@@ -230,10 +230,10 @@ hello(*d.items())   Hello ('prenom','Marie') ('nom','Jean')
 hello(**d)          Hello Marie Jean  
 NB: Ce dernier cas marche si les arguments sont identiques aux clés du dict sinon utiliser hello(*d.values())
 
---- Fonction anonymes ou lamda ou jetables ou callback car pas utilisé en dehors d'une seule fois
-    Elle doit s'executer sur une seule ligne
+--- Fonction anonymes ou lamda ou jetables ou callback car pas utilisé en dehors d''une seule fois
+    Elle doit s''executer sur une seule ligne
     
-lambda a,b:a+b  : utilisation de mot clé lambda sans nom de fonction. On peut l'affecter à une var
+lambda a,b:a+b  : utilisation de mot clé lambda sans nom de fonction. On peut l''affecter à une var
 
 def sorted_key(elt):return len(elt)
 
@@ -243,7 +243,7 @@ l.sort()                                "Anne","Boubacar","Joe"
 print(sorted(l))                        "Anne","Boubacar","Joe"
 print(sorted(l, key=sorted_key)) ou l.sort(key=sorted_key)        "Joe","Anne","Boubacar"
     La fonction trie selon la longueur des mots puis dans leur ordre alpha. 
-    La fonction anonyme sorted_key est appelée sans les () car passée en référence. C'est un callback
+    La fonction anonyme sorted_key est appelée sans les () car passée en référence. C''est un callback
 
 ----Utilisation de fonction lambda:    
 l.sort(key=lambda a: len(a))     "Anne","Boubacar","Joe" 
@@ -256,7 +256,7 @@ def Majeur(age):
     
 --- Les arguments variables
 
-def somme(*args):return sum(args)     * indique qu'on peut passer 0 ou n arguments
+def somme(*args):return sum(args)     * indique qu''on peut passer 0 ou n arguments
 
 somme(1,2,3)  : 6
 
@@ -267,7 +267,7 @@ create_dict(nom="Jean", age=14, job="Devops")  retourne un dict {'nom': 'Jean', 
 ----- Les env
 
 
-python -m venv myen             : créer un env nommé myenv   
+python -m venv myenv             : créer un env nommé myenv   
 pip install flask python-dotenv : installer  flask python-dotenv
 python -m venv myen             : Lancer une appli
 
