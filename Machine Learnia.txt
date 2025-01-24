@@ -9,44 +9,107 @@ Lancer Anaconda et installer les Interfaces : Spyder et Jupyter
 
 #Arithmetic
 
-print(x + y)
-print(x - y)
-print(x * y)
-print(x / y)
-print(x ** y)   : fonction puissance
+    print(x + y)
+    print(x - y)
+    print(x * y)
+    print(x / y)
+    print(x ** y)   : fonction puissance
 
 # Comparison
 
-print(x <= y)
-print(x >= y)
-print(x == y)
-print(x != y)
+    print(x <= y)
+    print(x >= y)
+    print(x == y)
+    print(x != y)
 
 # Logic
 
-print(False & True) # AND
-print(False | True) # OR
-print(False True) # XOR
+    print(False & True) # AND
+    print(False | True) # OR
+    print(False True) # XOR
 
 Fonctions 
 
-f = lambda x : x**2  < ---- Equivalant à f(x)=x² . Lambda adapté pour les fonctions maths
-f = lambda x,y : x**2 + y
+    f = lambda x : x**2  < ---- Equivalant à f(x)=x² . Lambda adapté pour les fonctions maths
+    f = lambda x,y : x**2 + y
 
-On utilise plus les fonctions en programmation pour les fonctionnalités
+On utilise plus les fonctions en programmation pour les fonctionnalités. 
+NB : Les instructions avant le prochain saut de ligne font partir de la fonction
 
-def e_potential (mass, height, g=9.81): 
-    E = mass * height * g
-    print(E, 'Joules')
-    return E
+    def e_potential (mass, height, g=9.81): 
+        E = mass * height * g
+        print(E, 'Joules')
+        return E
 
-result = e_potential (mass=80, height=5)
-result = e_potential (mass=80, height=5, g=6.7)
+    result = e_potential (mass=80, height=5)
+    result = e_potential (mass=80, height=5, g=6.7)
+
+Exo: Pour retourner true or false si l'energie potentielle est < à une valeur limite :
+
+    def e_potential_limit(mass, height, limit, g=9.81):
+        E = mass * height * g
+        #print(E)
+        return E < limit
+
+    e_potential_limit(5,10,6000) < ---- retourne true
 
 
+---------- Les structures de condition ----------
+
+Instruction : if --------
+
+    def signe(x):
+        if x > 0:
+        print(x, 'positive')
+        elif x == 0:
+        print(x, 'nul)
+        else:
+        print(x, 'negative')
 
 
+Instruction : For ------------
 
+    for i in range(10):
+        print(i)
+    
+NB : range() -> génère une sequence de nombre que l'on peut parcourir
+Example: range(10) -> 0, 1, 2, 3, 4, 5, 6, 7, 8, 9
+
+range() prend en réalité 3 arguments: range(debut, fin, pas)
+Example:
+
+    for element in range(5, 10, 2):
+        print(element)
+
+    5
+    7
+    9
+
+range() peut avoir des arguments négatifs qui inversent les sens de parcours
+
+    for element in range(10, -10, -3):
+        signe (element)
+
+    10 positif
+     7 positif
+     4 positif
+     1 positif
+    -2 negatif
+    -5 negatif
+    -8 negatif
+
+Instruction : While ------------
+
+    x = 0
+
+    while x<3:
+        print(x)
+        x += 1
+
+    0
+    1
+    2
+    3
 
 
 
