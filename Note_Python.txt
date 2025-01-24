@@ -1,3 +1,5 @@
+Apprendre Python : https://www.youtube.com/watch?v=Hs07URZ7TMo&list=PLMS9Cy4Enq5JmIZtKE5OHJCI3jZfpASbR&index=13
+
 --------- Extension Python à installer:
 
 Python extension pack  : les softs importants dont Python, Django, Jinja
