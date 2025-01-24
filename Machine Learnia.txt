@@ -54,6 +54,13 @@ Exo: Pour retourner true or false si l'energie potentielle est < à une valeur l
     e_potential_limit(5,10,6000) < ---- retourne true
 
 
+    def fibonacci(n):
+        a = 0
+        b = 1
+        while a < n:
+            print(a)
+            a, b = b, a+b
+        
 ---------- Les structures de condition ----------
 
 Instruction : if --------
@@ -111,8 +118,247 @@ Instruction : While ------------
     2
     3
 
--------- Listes et Tuples ------------------ 
+-------- Les Sequences : Listes, Tuples, Strings ------------------ 
+
+Sequence : ensemble d'elements ordonnés. Chaque élt a un indexe
+
+# Lists 
+
+    list_1= [1, 4, 2, 7, 35, 84]
+    cities = ['Paris', 'Berlin', 'London', 'Brussels']
+    list_2= [list_1, cities]
+    list_3 = [] 
+
+# Tuple
+    1 = (1, 2, 6, 1, 7)
+
+# String
+    prenom = 'Nicolas'
 
 
+#INDEXING
+
+    print(cities[0]) # first element = index 0
+    print(cities[1]) # second element = index 1
+    print(cities[-1]) # last element
+    print(cities[-2]) # before last
+
+# Slicing
+
+Permet de récupérer des elts en indiquant : debut:fin:pas
+
+    print cities = [0:3] (or cities = [:3] quand on commence par 0)     --> 'Paris', 'Berlin', 'London'
+    print cities = [2:]  --> 'London', 'Brussels'
+    print cities = [1:3] --> 'Berlin', 'London'
+    print cities = [::2] --> 'Paris', 'London'
+    print cities = [::-1]--> 'Brussels''London','Berlin','Paris'  
+    
+    print(prenom[:3]) --> Nic
+    
+    - Ajout en fin de liste
+    cities.append('Dublin')     --> 'Paris', 'Berlin', 'London', 'Brussels', 'Dublin'
+    
+    - Insertion à une position donnée
+    cities.insert(2, 'Madrid')  --> 'Paris', 'Berlin', 'Madrid', 'London', 'Brussels', 'Dublin' NB: Index 2 = 3e position
+
+    - Extend : Pour ajouter une liste à la fin d'une liste existante 
+    
+    cities_2 = ['Amsterdam', 'Rome']
+    cities.extend(cities_2) --> cities = ['Paris', 'Berlin', 'Madrid', 'London', 'Brussels', 'Dublin','Amsterdam', 'Rome']
+
+    - Voir le nombre d'elts dans la liste 
+    len(cities) --> 8
+    
+    - Trier une liste :  
+    len(cities).sort()  --> alphabetique ou numerique du plus grand au plus    
+    len(cities).sort(reverse=true)   --> Tri inverse alphabetique ou numerique
+    
+    - Compter les occurences :
+    cities.count('Paris') = 1
+    
+    - Voir autres methodes tels que : pop, clear, remove ...
+    
+    - If : pour Vérifier si un elt est dans une liste :
+    
+        if 'Belfast' in cities:
+            print('Yes')
+        else:
+            print('Non')
+
+        --> Non
+
+    - For : Pour parcourir une liste 
+    
+        for i in (cities): 
+            print(i)
+
+    
+    - For : Pour parcourir une liste et afficher les indexes:
+    
+        for index, value in enumerate(cities): 
+            print(index, value)
+
+        0 Rome
+        1 Paris
+        2 Madrid   
+        ...
+        
+    - zip : pour parcourir et afficher les données de 2 listes en parallèle. Elle s'arrête là où la liste la plus courte 
+            prend fin
+
+        for a, b in zip (villes, liste_2): 
+            print(a, b)    
+    
+        Rome 2
+        Paris 3
+        Madrid 23
+        ...
+ 
+Exo : Return a list containing the fibonacci sequence
+
+    def fibonacci(n):
+        
+        a = 0
+        b = 1
+        fib = [a]
+        while b < n:
+            a, b = b, a+b
+            fib.append(a)
+        return fib
+        
+        print(fibonacci(1000))
+ 
+ ---- Les Dictionnaires -------------------------------
+
+Ici les valeurs ne sont pas ordonnées (pas d''indexes) mais des clés. C'est une association "clé : valeur " .
+La clé doit être unique
+
+    translation { 
+        "dog": "dog",
+        "chat" : "cat",
+        "mouse": "mouse",
+        "bird": "bird" 
+    }
+
+    inventaire = {
+        "bananes":5000,
+        "pommes":2094,
+        "poires":412809,
+        "cerises":2893
+        }
+
+- On peut nester des dicts :
+
+    dictionary_3 = { 
+        "dict_1": translation, 
+        "dict_2": inventory 
+        }
 
 
+- Certains utilisent les dicts pour créer leur réseau de neurones (voir plus loin)
+    
+    import numpy as np
+
+    parameters = { 
+        "W1": np.random.randn(10, 100),
+        "b1": np.random.randn(10, 1),
+        "W2" : np.random.randn(10, 10),
+        "b2": np.random.randn(10, 1)
+        }
+    
+- Afficher les données du dict :
+    inventaire.values()  -->  dict_values([5000, 2094, 412809, 2893])
+   
+ 
+dict_values([5000, 2094, 412809, 2893])
+
+- Afficher les clés : 
+    inventaire.keys() -->  dict_keys(['bananes', 'pommes', 'poires', 'cerises'])
+
+- Longueur dict :
+    len(inventaire)  --> 4
+
+- Ajouter un nouvel élément au dict :
+    inventaire ["abricots"] = 4902      -->  Pas besoin d'ordre et d'indexe ici car pas une séquence
+
+     -->   inventaire = {
+                'bananes':5000,
+                'pommes': 2094,
+                'poires':412809,
+                'cerises':2893,
+                'abricots': 4902} 
+    
+- Autres méthodes :
+
+        inventory.
+                clear
+                copy
+                fromkeys
+                get
+                items
+                keys
+                pop
+                popitem
+                setdefault
+                update
+
+- get : permet d'afficher une valeur par défaut si on ne retrouve pas l'elt recherché dans dict :   
+ 
+     print(inventaire.get('peches'))    --> None    : valeur non trouvée et None est renvoyé
+     print(inventaire.get('peches',1))  --> 1       : valeur non trouvée donc 1 est renvoyé
+     print(inventaire.get('cerises',1)) --> 2893    : valeur trouvée et renvoyée
+    
+
+- fromkeys : Permet de créer un dict à partir d'une liste forunie
+
+    list_1 = ('Paris', 'London', 'Brussels')
+
+    inventory.fromkeys(list_1)
+    {'Paris': None, 'London': None, 'Brussels': None }  --> None est la valeur associées aux clés du dict
+
+    inventory.fromkeys(list_1, 'default')
+    {'Paris': 'default', 'London': 'default', 'Brussels':'default'} --> 'default' est la valeur associées aux clés du dict
+    
+- pop : 1. Retire un élt de dict ou d''une liste et 2. retourne la valeur de l''élt en sortie
+
+    fruits = inventaire.pop('abricots') -->  fruits = 4902 
+
+     -->   inventaire = {
+                'bananes':5000,
+                'pommes': 2094,
+                'poires':412809,
+                'cerises':2893
+                }     
+    
+- For : Pour afficher un dict :
+
+    for i in inventaire: 
+        print(i)
+
+        bananes 
+        pommes 
+        poires 
+        cerises   
+
+    for i in inventaire.values():   -->  Pour afficher les valeurs
+        print(i)
+
+        5000
+        2094
+        412809
+        2893  
+    
+    for k, v in inventaire.items(): -->  Pour afficher les clés et les valeurs
+        print(k, v)
+
+        bananes 5000
+        pommes  2094 
+        poires  412809
+        cerises 2893    
+    
+   
+    
+    
+    
+    
+    
