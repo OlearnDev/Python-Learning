@@ -504,3 +504,432 @@ Exemple : Ecrire dans un fichier, le carré de nombre de 0 à 10 :
         9^2 = 81
  
  
+ Exo : Mettre toutes les lignes d'un fichier dans une liste : 
+
+    - Méthode 1 : 
+    
+      with open('fichier.txt', 'r') as f:
+           liste f.read().splitlines()      --> avec splitlines(), '\n' est supprimé. Avec readlines(), '\n' est présent
+
+    - Méthode 2 : avec "liste comprehension"
+    
+    liste = [line.strip() for line in open('fichier.txt', 'r')]  -->  '\n' est présent
+ou  liste = [line for line in open('fichier.txt', 'r')]          -->  '\n' est supprimé
+    
+    
+
+I 
+ ---------- Packages et Modules ----------------------------
+ 
+ - Le dossier '_pycache_' dans le répertoire des fichiers et modules de python, permet de créer des liens entre les modules
+ 
+ 1) vi projet_1.py 
+ 
+         def fibonacci(n):
+        # returns fibonacci series in a list
+            a, b = 0, 1
+            fib = []
+            while a<n:
+                fib.append(a)
+                a, b = b, a+b
+
+            return fib
+
+I   EOF
+ 
+ 2) vi projet_2.py
+ 
+        import projet_1 as p1
+
+        liste = p1.fibonacci(50)      --> La fonction retourne une liste
+     
+    
+    EOF
+ 
+ Dans projet_2.py, on peut choisir d'importer juste la fonction fibo :
+ 
+    vi projet_2.py
+ 
+        from projet_1 import fibonacci      --> import * si on veut importer tous les elts du module
+
+        liste = fibonacci(50)               --> On n'a plus besoin de préfixé par le nom du projet p1
+     
+    
+    EOF
+ 
+ docs.python.org/3/py-modindex.html : doc officielle de python pour les modules 
+ 
+ - Un module contient du code
+ - Un package regroupe des modules  (exple pkg MATPLOTLIB qui contient le module PAIRPLOT)
+ 
+ - Modules de base importants : 
+ 
+    import math
+    import random
+    import statistics
+    import os
+    import glob
+
+
+#----- MATH
+
+    print(math.cos(math.pi))  -->  -1
+    print(math.cos(2*math.pi))
+    print(math.exp(5))
+
+# STATISTICS
+
+    print(statistics.mean(list)) 
+    print(statistics.variance(list)) 
+
+# RANDOM
+    print(random.choice(['jean', 'anne', 'julie']))
+
+    print(random.choice(['jean', 'anne', 'julie']))
+    print(random.random())          --> float
+    print(random.randint(5, 10))    --> int
+    print(random.randrange(100))    --> int between 0 and 100
+    print(random.sample(range(100), 10))
+ 
+# generate a random list
+    print(random.sample(range (100), random.randrange(10)))
+
+# shuffle permet de mélanger l'ordre des elts d'une liste
+    random.shuffle(list)
+
+# OS
+
+    os.getcwd  --> get Current Work Directory : indique le rép courant
+
+#GLOB
+
+    print(glob.glob("*.txt")   --> Liste tous les fichiers *.txt
+ 
+ Exemple : Combiner glob et file pour lire les contenus des fichiers du rep courant : 
+ 
+    filenames = glob.glob('*.txt')
+    
+     for file in filenames:
+        with open(file, 'r') as f:
+            print(f.read())
+ 
+ 
+ Exo : Lire le contenu d'un rep et enregistrer le contenu des fichiers dans un dict :
+ 
+    NB : Dans une boucle for, on ne peut pas créer de nouvelles var mais on peut créer de nouvelles clés pour un dict
+ 
+    filenames = glob.glob('*.txt')
+    d = {}
+    for file in filenames:
+        with open(file, 'r') as f:
+            d[file] = f.read().splitlines()    <-- Le dict crée une clé avec le nom du fichier dont la valeur est son contenu
+            
+            
+    {'file.txt': ['103', '124', '1256', '23', '57', '246', '125', '267', '2544', '245', '231'], 
+     'villes.txt': ['Paris', 'Lyon', 'Marseille', 'Lille', 'Toulouse', 'Strasbourg', 'Bordeaux']}
+
+
+ 
+ ------------ Programmation Objet ------------------------------------------
+ 
+ docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html
+ 
+ 3 notions : Objet, Attribut, Methode
+ Constructeur : permet de créer un objet de classe
+ 
+ Class ndarray de numpy : Permet de créer des tableaux à N Dimensions
+ 
+ class numpy.ndarray(shape, dtype=float, buffer=None, offset=0, strides=None, order=None)
+ 
+ Attributes:  T:ndarray
+    The transposed array.
+
+    data: buffer
+        Python buffer object pointing to the start of the array's data.
+
+    dtype: dtype object
+        Data-type of the array's elements.
+
+    flags: dict
+        Information about the memory layout of the array.
+
+    flat: numpy.flatiter object
+        A 1-D iterator over the array.
+
+    imag: ndarray
+        The imaginary part of the array.
+
+    real:ndarray
+        The real part of the array.
+
+    size: int
+        Number of elements in the array.
+
+    itemsize: int
+        Length of one array element in bytes.
+
+    nbytes: int
+        Total bytes consumed by the elements of the array.
+
+    ndim: int
+        Number of array dimensions.
+
+    shape: tuple of ints
+        Tuple of array dimensions.
+
+    strides: tuple of ints
+        Tuple of bytes to step in each dimension when traversing an array.
+
+    ctypes: ctypes object
+        An object to simplify the interaction of the array with the ctypes module.
+ 
+ On a aussi bcp de methodes sur cette class
+ 
+ Le constructeur s'appelle : array
+ 
+ Pour l'utiliser :
+ 
+    import numpy as np
+
+    tableau = np.array([1, 2, 3])
+
+    print(tableau.size)
+ 
+
+-------------- NUMPAY Machine ----------------------
+
+Le tableau numpay est beaucoup plus puissant qu'une liste :
+    - Moins de place en mémoire donc plus rapide pour les operations
+    - Bcp plus de methodes disponibles pour les actions ou operations
+ 
+On utilisera bcp les tableaux à 2 dimensions, pratiques pour les images où on indiquera les coord x,y des pixels de l'image.
+Chaque couleur representera une dimension pour le tableau d'une image
+
+
+Attribut shape : permet de déterminer la forme du tableau
+
+ex : ndim = 3       : tab à 3 dimensions
+     shape(2,3,2)   : 2 elts sur les lignes, 3 elts sur les colonnes et 2 elts sur la hauteur 
+
+L'attribut shape est un tuple :
+    1. C'est donc une séquence : On peut accéder aux differentes valeurs en indiquant les indexes (shape[0] --> elt ligne)
+    2. L''attribut shape ne peut être modifié car c''est un tuple
+
+Attributs min à retenir : shape et size car ndim = 2 en général
+
+- Constructeur array : 
+
+    import numpy as np
+
+    A = np.array([1, 2, 3])
+
+    A.ndim      --->    1
+    A.shape     --->    (3,)
+ 
+
+- Constructeur zeros : remplit un tableau de zeros en indiquant le shape sous forme de tuples 
+     B = np.zeros((3, 2))
+     
+         array([[0., 0.],
+                [0., 0.],
+                [0., 0.]])
+    
+    B.ndim        --->  2
+    B.shape       ---> (3,2)
+    type(B.shape) ---> tuple
+    
+
+- Constructeur ones : remplit un tableau de 1 
+
+    C = np.ones((3,4))
+
+      array([[1., 1., 1., 1.],
+            [1., 1., 1., 1.],
+            [1., 1., 1., 1.]])  
+    
+    C.size    --->    12  
+    
+- Constructeur full : remplit un tableau avec une valeur indiquée
+
+    D = np.full((2, 3), 9)
+
+         array([[9, 9, 9],
+                [9, 9, 9]])   
+    
+- Constructeur random :
+
+Permet de générer des nombres aléatoires. On utilise randn pour générer des nombres avec une distribution centré en en 0 (en stats).
+Pour générer toujours les mêmes nombres, on fixe avec la fonction seed :
+
+    np.random.seed(0)               <-- Si on change le nombre, les nombres générés vont changer
+    np.random.randn(3, 4)
+
+     array([[ 1.2824656 0.70519288, -1.71966591,-0.96709965],
+            [-0.03140678,-0.59476713,0.59382329,1.44692847],
+            [0.00404294, -0.05312601, -0.96163844,0.00219315]])   
+    
+
+- Constructeur eye : pour la matrice Identité
+
+    np.eye(4)
+
+      array([[1., 0., 0., 0.],
+            [0., 1., 0., 0.],
+            [0., 0., 1., 0.],
+            [0., 0., 0., 1.]])
+    
+- Constructeur linspace : répartition équitable de n elts entre un debut et une fin (deb, fin, n)
+
+    np.linspace(0, 10, 20)
+
+    array([ 0., 0.52631579, 1.05263158, 1.57894737, 2.10526316, 2.63157895, 3.15789474, 3.68421053, 4.21052632, 4.73684211,
+            5.26315789, 5.78947368, 6.31578947, 6.84210526, 7.36842105, 7.89473684, 8.42105263, 8.94736842, 9.47368421, 10.])   
+    
+- Constructeur arange : répartition d'elts entre un debut et une fin avec un pas (deb, fin, pas)
+    
+    np.arange(0, 10, 1) ---> array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
+    
+--- dtype : Permet de définir le type de données dans notre tableau
+
+NB : Quelque soit le constructeur choisi, on peut indiquer dtype pour le type de données. Cela permet d'avoir plus de précisions
+sur les nombres à générer (float64 plus précis que float16) mais à l'inverse peut s'exécuter plus lentement
+
+ex: np.linspace(0, 10, 20, dtype=np.float16)
+
+
+---- Manipulation : utilisation de quelques méthodes
+   
+  A = np.zeros((3, 2))
+  B = np.ones((3, 2))
+
+    print(A)
+
+        [[0.0.]
+        [0. 0.]
+        [0. 0.]]
+
+    print(B)
+
+        [[1. 1.]
+        [1. 1.]
+        [1. 1.]]
+        
+
+- Assemblage horizontal :
+
+    C= np.hstack((A, B))
+
+         array([[0., 0., 1., 1.],
+                [0., 0., 1., 1.],
+                [0., 0., 1., 1.]])   
+    
+    C.shape  -- > (3, 4)
+    
+- Assemblage vertical :
+
+    D = np.vstack((A, B))
+
+     array([[0., 0.],
+            [0., 0.],
+            [0., 0.],
+            [1., 1.],
+            [1., 1.],
+            [1., 1.]])   
+
+    D.shape  -- > (6, 2)
+    
+NB : On peut faire un assemblage avec concatenate. Ici on précise :
+
+    'axis=0' pour assemblage verticale ou selon l'axe des ordonnéées  
+    'axis=1' pour assemblage horizontale ou selon l'axe des absisses 
+
+np.concatenate((A, B), axis=0)
+
+        array([[0., 0.],
+                [0., 0.],
+                [0., 0.],
+                [1., 1.],
+                [1., 1.],
+                [1., 1.]])
+    
+
+concatenate est plus pratique car permet de préciser axis=2 pour un tab de 3 dim, non disponible avec hstack ou vstack   
+    
+- Reshape : Permet de manipuler ou changer la forme d'un tableau 
+
+NB: Le nombre d'elts final doit correspondre au nombre initial (lignes x colonnes)
+
+    D = D.reshape((3,4))
+
+         array([[0., 0., 0., 0.],
+                [0., 0., 1., 1.],
+                [1., 1., 1., 1.]])
+
+    - Pour les tableaux à 1 dim, il est nécessaire souvent d'indiquer la colonne et ne pas laisser sous la forme A = (3, ) car
+      cela peut engendrer des erreurs dans les codes. On utilise reschape comme ci-dessous :
+      
+            A = np.array([1, 2, 3])
+            A = A.reshape((A.shape[0], 1))
+            A.shape                         --->    (3, 1)
+ 
+    - A l'inverse, on peut avoir de supprimer le 1 dans la colonne pour un shape. On utilise squeeze :
+    
+        A.squeeze
+        A.shape                         --->    (3, )
+        
+    
+- Methode ravel :
+
+Permet de transformer ou aplatir un tableau en un tab à 1 dim : les différentes lignes sont alignées à la suite des autres   
+
+    D.ravel()           --->  array ([0., 0., 0., 0., 0., 0., 1., 1., 1.,1., 1.,1.]
+    D.ravel().shape     --->  (12, )
+
+
+---------- Indexing, Slicing, Masking ------------------------------
+
+import numpy as np
+
+A= np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+
+     array([[1, 2, 3],
+            [4, 5, 6],
+            [7, 8, 9]])
+
+- Accès simple : 
+
+    A[1, 1]  --> 5
+
+- Afficher tous les elts de la 1re colonne :    
+    Α[:,0] -->  array([1, 4, 7])
+    
+- Afficher tous les elts de la 1re ligne :
+    Α[0,:] ou Α[0] -->  array([1, 2, 3])
+    Α[1]           -->  array([4, 5, 6])  : affiche la 2e ligne 
+    
+- Sélectionner un bloc :
+
+    Α[0:2, 0:2]
+
+          array([[1, 2],
+                [4, 5]])
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
