@@ -269,15 +269,20 @@ create_dict(nom="Jean", age=14, job="Devops")  retourne un dict {'nom': 'Jean', 
 ----- Les env
 
 
-python -m venv myenv             : créer un env nommé myenv   
+python -m venv env             : créer un env nommé env 
+flask --version  
 pip install flask python-dotenv : installer  flask python-dotenv
-python -m venv myen             : Lancer une appli
+./env/Scripts/activate			: Pour activer l'env sous windows ou linux. (env) s'affiche en debut de ligne de commande
+deactivate						: Pour quitter env
+pip freeze > requirements.txt	: Liste tous les pkgs ou dépendences installés dans env dans un fichier, facile à importer sur une nouvelle machine
+python -m venv env            : Lancer une appli
+pip install -r 	requirements.txt : pour installer tous les elts dans le fichier
 
 
+---------- Fichier demo avec flask framework -------
 from flask import Flask
 
 app=Flask(__name__)
-
 @app.route('/')   
 
 def home():
