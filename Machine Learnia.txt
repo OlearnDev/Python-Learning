@@ -886,11 +886,31 @@ Permet de transformer ou aplatir un tableau en un tab à 1 dim : les différente
     D.ravel().shape     --->  (12, )
 
 
+Exercice : Créer une fonction avec les specs ci-dessous : 
+
+    def initialisation (m, n):
+        # m : nombre de lignes
+        # n: nombre de colonnes
+        # retourne une matrice aléatoire (m, n+1)
+        # avec une colonne biais (remplie de "1") tout a droite
+    return
+
+    def initialization(m, n):
+        X = np.random.randn(m,n)
+        X = np.concatenate ((X, np.ones((X.shape[0], 1))), axis = 1)    
+        return X
+
+print(initialization(3, 2))
+
+        [[-1.09588204 -0.63420736  1.        ]
+         [-0.46142736  0.83928281  1.        ]
+         [ 2.36336103 -1.34015061  1.        ]]
+
 ---------- Indexing, Slicing, Masking ------------------------------
 
 import numpy as np
 
-A= np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+A= np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
 
      array([[1, 2, 3],
             [4, 5, 6],
@@ -910,9 +930,161 @@ A= np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]]
 - Sélectionner un bloc :
 
     Α[0:2, 0:2]
-
           array([[1, 2],
-                [4, 5]])
+                 [4, 5]])
+
+    
+    A[1:3,0:2]
+           array([[4, 5],
+                 [7, 8]])   
+
+
+    A[1:3,1:2]
+           array([[5],
+                  [8]])
+
+
+    A[1:3,1:3]
+           array([[5, 6],
+                  [7, 8]])
+
+
+    A[:,1:]                     <--- De la 1ere colonne à la derniere colonne
+             array([[2, 3],
+                    [5, 6],
+                    [8, 9]])
+                  
+ 
+    A[:,-2:]                    <--- Les 2 dernieres colonnes : plus pratiques pour un tableau plus long
+             array([[2, 3],
+                    [5, 6],
+                    [8, 9]])
+
+                    
+Modification de bloc : 
+
+    Α[0:2, 0:2] = 10
+
+    A   -->  array([[10, 10, 3],
+                    [10, 10, 6],
+                    [7, 8, 9]])
+
+
+Exo : 
+
+1)  B = np.zeros((4, 4))
+
+         array([[0., 0., 0., 0.],
+                [0., 0., 0., 0.],
+                [0., 0., 0., 0.],
+                [0., 0., 0., 0.]])
+
+On veut remplir les 4 elts du bloc du milieu par la valeur 1
+
+ B[1:3, 1:3] = 1
+
+        array([[0., 0., 0., 0.],
+                [0., 1., 1., 0.],
+                [0., 1., 1., θ.],
+                [0., 0., 0., 0.]])
+
+2)    C= np.zeros((4, 4))
+    
+         array([[0., 0., 0., 0., 0.],
+                [0., 0., 0., 0., 0.],
+                [0., 0., 0., 0., 0.],
+                [0., 0., 0., 0., 0.],
+                [0., 0., 0., 0., 0.]])
+
+On veut changer les 0 en 1 par pas de 2
+
+    C[::2, ::2] = 1
+
+     array([[1., 0., 1., 0., 1.],
+            [0., 0., 0., 0., θ.],
+            [1., 0., 1., 0., 1.],
+            [0., 0., 0., 0., θ.],
+            [1., 0., 1., 0., 1.]])
+
+
+--- Comparaison avec les tableaux 
+ 
+A = np.random.randint(0, 10, [5, 5])        <--- Un tableau de dim 5x5 de valeurs entre 0 et 10
+
+            array([[5, 7, 0, 0, 2],
+                    [4, 1, 8, 2, 9],
+                    [4, 9, 2, 6, 5],
+                    [3, 4, 5, 2, 0],
+                    [6, 3, 2, 0, 2]])
+
+    A < 5
+
+     array([[False, False, True, True, True],
+            [ True, True, False, True, False],
+            [True, False, True, False, False],
+            [ True, True, False, True, True],
+            [False, True, True, True, True]])
+
+- Pour changer tous les nombres < 5 à 10 dans le tableau :
+
+    A[A<5] = 10
+
+     array([[ 5, 7, 10, 10, 10],
+            [10, 10, 8, 10, 9],
+            [10, 9, 10, 6,  5],
+            [10, 10, 5, 10, 10],
+            [ 6, 10,10, 10, 10]])
+
+NB : B = A[A<5]   <--- Ramène un tableau à 1 dim de valeurs < 5
+    A[A<5].shape  ---> (15,) par exemple de 15 elts sur 1 ligne
+    
+    
+Exo : Charger une image avec le code de scipy. On va zoomer et y appliquer  un filtre :
+
+    from scipy import misc
+    import matplotlib.pyplot as plt             <--- pour afficher la photo
+    face = misc.face()
+    plt.imshow(face)
+    plt.show()  
+    
+- face est un tabeau numpay :
+
+    type(face)      ---> numpay.ndarray
+    face.shape      --->  (768, 1024, 3)        : tab à 3 dim de couleur rouge, vert, bleu
+    
+
+NB: On va changer la couleur de l'image en noir et blanc en modifiant les 2 params ci-dessous :
+
+    from scipy import misc
+    import matplotlib.pyplot as plt
+    face misc.face(gray=True)               *
+    plt.imshow(face, cmap=plt.cm.gray)      *
+    plt.show()
+
+    face.shape      --->  (768, 1024, 2)    : tab à 2 dim
+
+
+----------- Statistiques et Maths ----------------------------
+
+import numpy as np
+np.random.seed(0)
+A = np.random.randint(0, 10, [2, 3])
+
+    A  ---> array([[5, 0, 3], 
+                   [3, 7, 9]])
+
+Methods 
+
+    A.sum()         ---> 27
+    A.sum(axis=0)   ---> array([8, 7, 12])
+    A.sum(axis=1)   ---> array([8, 19])
+
+    A.cumsum()      ---> array ([5, 5, 8, 11, 18, 27],dtype=int32)   : la somme cumulée
+    A.cumprod()     ---> 0                                           : le produit
+    A.cumprod()     ---> array ([5, 0, 0, 0, 0, 0], dtype=int32)     : le produit cumulé
+    A.min(axis=0)   ---> array ([3, 0, 3])                           : minimum sur chaque axe
+
+    A.argmin(axis=0)---> array([1, 0, 0], dtype=int64)               : la position minimum sur chaque axe 
 
 
 
@@ -930,6 +1102,15 @@ A= np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]]
 
 
 
-
-
-
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
